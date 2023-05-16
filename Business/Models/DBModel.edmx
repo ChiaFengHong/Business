@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BusinessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AddItem">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindID" Type="int" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyTime" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemList">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindID" Type="int" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyTime" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KindList">
+          <Key>
+            <PropertyRef Name="KindID" />
+          </Key>
+          <Property Name="KindID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyTime" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseLog">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="PurchaseID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UnitPrice" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShippingLog">
+          <Key>
+            <PropertyRef Name="ShippingID" />
+          </Key>
+          <Property Name="ShippingID" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UnitPrice" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StockList">
+          <Key>
+            <PropertyRef Name="StockID" />
+          </Key>
+          <Property Name="StockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KindName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModifyTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Qty" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="BusinessModelStoreContainer">
+          <EntitySet Name="AddItem" EntityType="Self.AddItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemList" EntityType="Self.ItemList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KindList" EntityType="Self.KindList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseLog" EntityType="Self.PurchaseLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShippingLog" EntityType="Self.ShippingLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockList" EntityType="Self.StockList" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BusinessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="KindList">
+          <Key>
+            <PropertyRef Name="KindID" />
+          </Key>
+          <Property Name="KindID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KindName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyTime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PurchaseLog">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" />
+          <Property Name="KindName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShippingLog">
+          <Key>
+            <PropertyRef Name="ShippingID" />
+          </Key>
+          <Property Name="ShippingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KindName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AddItem">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="KindName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ModifyTime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KindID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemList">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="KindName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="ModifyTime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KindID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StockList">
+          <Key>
+            <PropertyRef Name="StockID" />
+          </Key>
+          <Property Name="KindName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModifyTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Qty" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="StockID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KindLists" EntityType="Self.KindList" />
+          <EntitySet Name="PurchaseLogs" EntityType="Self.PurchaseLog" />
+          <EntitySet Name="ShippingLogs" EntityType="Self.ShippingLog" />
+          <EntitySet Name="AddItems" EntityType="Self.AddItem" />
+          <EntitySet Name="ItemLists" EntityType="Self.ItemList" />
+          <EntitySet Name="StockLists" EntityType="Self.StockList" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BusinessModelStoreContainer" CdmEntityContainer="DBModel">
+          <EntitySetMapping Name="KindLists">
+            <EntityTypeMapping TypeName="BusinessModel.KindList">
+              <MappingFragment StoreEntitySet="KindList">
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="KindID" ColumnName="KindID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseLogs">
+            <EntityTypeMapping TypeName="BusinessModel.PurchaseLog">
+              <MappingFragment StoreEntitySet="PurchaseLog">
+                <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShippingLogs">
+            <EntityTypeMapping TypeName="BusinessModel.ShippingLog">
+              <MappingFragment StoreEntitySet="ShippingLog">
+                <ScalarProperty Name="ShippingID" ColumnName="ShippingID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddItems">
+            <EntityTypeMapping TypeName="BusinessModel.AddItem">
+              <MappingFragment StoreEntitySet="AddItem">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="KindID" ColumnName="KindID" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemLists">
+            <EntityTypeMapping TypeName="BusinessModel.ItemList">
+              <MappingFragment StoreEntitySet="ItemList">
+                <ScalarProperty Name="KindID" ColumnName="KindID" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockLists">
+            <EntityTypeMapping TypeName="BusinessModel.StockList">
+              <MappingFragment StoreEntitySet="StockList">
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+                <ScalarProperty Name="KindName" ColumnName="KindName" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>Asp.Net MVC CRUD Operation Using Datatable Plugin</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.6.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+
+    <script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/bc2f8e5455.js" crossorigin="anonymous"></script>
+
+    <script>
+        function PopupForm(url) {
+            var titlename = "";
+            if (url.indexOf("AddOrEditKind") != -1) {
+                titlename = "種類編輯";
+            }
+            else if (url.indexOf("AddOrEditItem") != -1) {
+                titlename = "項目編輯";
+            }
+            else if (url.indexOf("AddOrEditProduct") != -1) {
+                titlename = "產品編輯";
+            }
+            var formDiv = $('<div/>');
+            $.get(url).done(function (response) {
+                formDiv.html(response);
+                Popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    title: titlename,
+                    hight: 500,
+                    width: 700,
+                    close: function () {
+                        Popup.dialog('destroy').remove();
+                    }
+                });
+            });
+        }
+
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+                            $("#KindTable").DataTable().ajax.reload();
+                            $("#ItemTable").DataTable().ajax.reload();
+                            $("#ProductTable").DataTable().ajax.reload();
+                            $("#stockTable").DataTable().ajax.reload();
+                            $("#PurchasingTable").DataTable().ajax.reload();
+                            $("#ShippingTable").DataTable().ajax.reload();
+
+                            $.notify(data.message, {
+                                globalPosition: "top center",
+                                className: "success"
+                            });
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+        function Delete(actionName, id) {
+            var urlpath, confirmstr,tableName;
+            if (actionName == "DeleteProduct") {
+                tableName = "#ProductTable"
+                confirmstr = '您確定要刪除這個產品?';
+                urlpath = '@Url.Action("DeleteProduct", "AddItem")/';
+            }
+            @*if (actionName == "DeleteKind") {
+                tableName = "#KindTable"
+                confirmstr = '您確定要刪除這個種類?';
+                urlpath = '@Url.Action("DeleteKindList", "AddItem")/';
+            }
+            if (actionName == "DeleteItem") {
+                tableName = "#ItemTable"
+                confirmstr = '您確定要刪除這個項目?';
+                urlpath = '@Url.Action("DeleteItemList", "AddItem")/';
+            }*@
+            if (actionName == "DeletePurchase") {
+                tableName = "#PurchasingTable"
+                confirmstr = '您確定要刪除這筆進貨紀錄?';
+                urlpath = '@Url.Action("DeletePurchase", "Product")/';
+            }
+            if (actionName == "DeleteShipping") {
+                tableName = "#ShippingTable"
+                confirmstr = '您確定要刪除這筆出貨紀錄?';
+                urlpath = '@Url.Action("DeleteShipping", "Product")/';
+            }
+
+            if (confirm(confirmstr)) {
+                    $.ajax({
+                        type: "POST",
+                        url: urlpath + id,
+                        success: function (data) {
+                            if (data.success) {
+                                $(tableName).DataTable().ajax.reload();
+
+                                $.notify(data.message, {
+                                    globalPosition: "top center",
+                                    className: "success"
+                                });
+                            }
+                        }
+                    });
+                }
+
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model Business.Models.ItemList
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddOrEditItem", "AddItem", FormMethod.Post, new { onsubmit = "return SubmitForm(this)" }))
+{
+    @Html.HiddenFor(model => model.ItemID)
+    <div class="form-group">
+        @Html.DisplayNameFor(model => model.KindName)
+        @Html.DropDownListFor(model => model.KindName, new SelectList(Model.KindListCollection, "KindName", "KindName"), "選擇種類")
+        @Html.ValidationMessageFor(model => model.KindName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ItemName, new { @class = "control-label" })
+        @Html.EditorFor(model => model.ItemName, new { htmlAttributs = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ItemName)
+    </div>
+    <div class="form-group" hidden>
+        @Html.LabelFor(model => model.CreateTime, new { @class = "control-label" })
+        @Html.EditorFor(model => model.CreateTime, new { htmlAttributs = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.KindName)
+    </div>
+    <div class="form-group">
+        <input type="submit" value="送出" class="btn btn-primary" />
+        <input type="reset" value="取消" class="btn" />
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#CreateTime").val = @ViewBag.CreateTime;
+    });
+</script>

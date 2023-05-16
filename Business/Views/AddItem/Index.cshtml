@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "產品列表";
+}
+
+<a class="btn btn-primary" style="margin-bottom:10px" href="@Url.Action("Index","Stock")"><i class="fa fa-home"></i> 回首頁</a>
+
+<h2>種類清單</h2>
+
+
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEditKind","AddItem")')"><i class="fas fa-plus-circle"></i> 新增種類</a>
+<table id="KindTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>            
+            <th>種類</th>
+            <th>建立時間</th>
+            <th>更新時間</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<h2>項目清單</h2>
+
+
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEditItem","AddItem")')"><i class="fas fa-plus-circle"></i> 新增項目</a>
+<table id="ItemTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>            
+            <th>種類</th>
+            <th>項目</th>
+            <th>建立時間</th>
+            <th>更新時間</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<h2>產品清單</h2>
+
+
+<a class="btn btn-success" style="margin-bottom:10px" onclick="PopupForm('@Url.Action("AddOrEditProduct","AddItem")')"><i class="fas fa-plus-circle"></i> 新增產品</a>
+<table id="ProductTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>            
+            <th>種類</th>
+            <th>項目</th>
+            <th>產品名稱</th>            
+            <th>建立時間</th>
+            <th>更新時間</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script>
+        var Popup;
+        $(document).ready(function () {
+            $("#KindTable").DataTable({
+                "ajax": {
+                    "url": "/AddItem/GetKindData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "KindName" },
+                    { "data": "CreateTime" },
+                    { "data": "ModifyTime" },
+                    {
+                        "data": "KindID", "render": function (data) {
+                            return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEditKind","AddItem")/" + data + "')><i class='fas fa-pencil-alt'></i> Edit</a>";
+                                //+ "<a style='margin-left:5px' class='btn btn-danger btn-sm' onclick='Delete(\"DeleteKind\",  " + data +"  )'><i class='fas fa-trash-alt'></i> Delete</a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "50px"
+
+                    }
+                ],
+                "language": {
+                    "emptyTable": "目前無種類，請新增種類列表"
+                }
+            });
+            $("#ItemTable").DataTable({
+                "ajax": {
+                    "url": "/AddItem/GetItemData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "KindName" },
+                    { "data": "ItemName" },
+                    { "data": "CreateTime" },
+                    { "data": "ModifyTime" },
+                    {
+                        "data": "ItemID", "render": function (data) {
+                            return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEditItem","AddItem")/" + data + "')><i class='fas fa-pencil-alt'></i>Edit</a>";
+                                //+ "<a style='margin-left:5px' class='btn btn-danger btn-sm' onclick='Delete(\"DeleteItem\",  " + data +"  )'><i class='fas fa-trash-alt'></i>Delete</a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "50px"
+                    }
+                ],
+                "language": {
+                    "emptyTable": "目前無項目，請新增項目列表"
+                }
+            });
+            $("#ProductTable").DataTable({
+                "ajax": {
+                    "url": "/AddItem/GetProductData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "KindName" },
+                    { "data": "ItemName" },
+                    { "data": "ProductName" },
+                    { "data": "CreateTime" },
+                    { "data": "ModifyTime" },
+                    {
+                        "data": "ProductID", "render": function (data) {
+                            return "<a class='btn btn-default btn-sm' onclick=PopupForm('@Url.Action("AddOrEditProduct","AddItem")/" + data + "')><i class='fas fa-pencil-alt'></i> Edit</a>"
+                                + "<a style='margin-left:5px' class='btn btn-danger btn-sm' onclick='Delete(\"DeleteProduct\",  "+data+"  )'><i class='fas fa-trash-alt'></i> Delete</a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "150px"
+
+                    }
+                ],
+                "language": {
+                    "emptyTable": "目前無產品，請新增產品列表"
+                }
+            });
+        });        
+    </script>
+}

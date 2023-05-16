@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "進出貨列表";
+}
+<a class="btn btn-primary" style="margin-bottom: 10px; margin-top: 10px; " href="@Url.Action("Index","Stock")"><i class="fa fa-home"></i> 回首頁</a>
+<a class="btn btn-default" style="margin-bottom:10px;margin-top:10px;" onclick="PopupForm('@Url.Action("AddPurchasing","Product")')"><i class="fas fa-cart-arrow-down"></i> 進貨</a>
+<a class="btn btn-default" style="margin-bottom:10px;margin-top:10px;" onclick="PopupForm('@Url.Action("AddShipping","Product")')"><i class="fas fa-shipping-fast"></i> 出貨</a>
+
+<h2>進貨紀錄</h2>
+
+<table id="PurchasingTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>種類</th>
+            <th>項目</th>
+            <th>產品名稱</th>
+            <th>建立時間</th>
+            <th>數量</th>
+            <th>成本</th>
+            <th>總成本</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+<h2>出貨紀錄</h2>
+
+<table id="ShippingTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>種類</th>
+            <th>項目</th>
+            <th>產品名稱</th>
+            <th>建立時間</th>
+            <th>數量</th>
+            <th>售價</th>
+            <th>總售價</th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script>
+        var Popup;
+        $(document).ready(function () {
+            $("#PurchasingTable").DataTable({
+                "ajax": {
+                    "url": "/Product/GetPurchasingData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "KindName" },
+                    { "data": "ItemName" },
+                    { "data": "ProductName" },
+                    { "data": "CreateTime" },
+                    { "data": "Qty" },
+                    { "data": "UnitPrice" },
+                    { "data": "TotalPrice" },
+                    {
+                        "data": "PurchaseID", "render": function (data) {
+                            return "<a style='margin-left:5px' class='btn btn-danger btn-sm' onclick='Delete(\"DeletePurchase\",  " + data +"  )'><i class='fas fa-trash-alt'></i> Delete</a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "50px"
+
+                    }
+                ],
+                "language": {
+                    "emptyTable": "目前無進貨紀錄"
+                }
+            });
+            $("#ShippingTable").DataTable({
+                "ajax": {
+                    "url": "/Product/GetShippingData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "KindName" },
+                    { "data": "ItemName" },
+                    { "data": "ProductName" },
+                    { "data": "CreateTime" },
+                    { "data": "Qty" },
+                    { "data": "UnitPrice" },
+                    { "data": "TotalPrice" },
+                    {
+                        "data": "ShippingID", "render": function (data) {
+                            return "<a style='margin-left:5px' class='btn btn-danger btn-sm' onclick='Delete(\"DeleteShipping\",  " + data +"  )'><i class='fas fa-trash-alt'></i>Delete</a>";
+                        },
+                        "orderable": false,
+                        "searchable": false,
+                        "width": "50px"
+                    }
+                ],
+                "language": {
+                    "emptyTable": "目前無出貨紀錄"
+                }
+            });            
+        });
+    </script>
+}
